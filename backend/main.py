@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from backend.api.upload import router as upload_router
 from backend.api.ask import router as ask_router
+from backend.api.impact import router as impact_router
 
 app = FastAPI()
 
@@ -10,3 +11,4 @@ def home():
 
 app.include_router(upload_router, prefix="/api")
 app.include_router(ask_router, prefix="/api")
+app.include_router(impact_router, prefix="/api")
