@@ -1,4 +1,7 @@
 import { useState } from "react";
+import UploadProject from "./components/UploadProject";
+import AskCodebase from "./components/AskCodebase";
+import ImpactAnalysis from "./components/ImpactAnalysis";
 
 
 
@@ -81,84 +84,36 @@ const handleImpact = async () => {
 
 
   return (
-    <div>
-      <header>
-        <h1>CodeMind AI</h1>
-        <p>AI-powered software engineering agent</p>
-      </header>
+  <div>
+    <header>
+      <h1>CodeMind AI</h1>
+      <p>AI-powered software engineering agent</p>
+    </header>
 
-      <main>
-        <section>
-          <h2>Upload Project</h2>
-          <p>Upload a ZIP file of your codebase.</p>
+    <main>
+      <UploadProject
+        selectedFile={selectedFile}
+        setSelectedFile={setSelectedFile}
+        handleUpload={handleUpload}
+        uploadResult={uploadResult}
+      />
 
-          <input 
-          type="file"
-           accept=".zip"
-           onChange={(e) => setSelectedFile(e.target.files[0])}
-           />
-          <button onClick={handleUpload}>Upload</button>
+      <AskCodebase
+        question={question}
+        setQuestion={setQuestion}
+        handleAsk={handleAsk}
+        askResult={askResult}
+      />
 
-          {uploadResult && (
-            <div>
-              <h3>{uploadResult.message}</h3>
-              <p>Total files: {uploadResult.total_files}</p>
-            </div>
-          )}
-        </section>
-
-        <section>
-          <h2>Ask Codebase</h2>
-          <p>Ask questions about your uploaded project.</p>
-
-          <input
-            type="text"
-            placeholder="Ask something about the codebase..."
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-
-          <button onClick={handleAsk}>Ask CodeMind</button>
-
-          {askResult && (
-            <div>
-              <h3>Answer:</h3>
-              <p>{askResult.answer}</p>
-
-              <h4>Sources</h4>
-
-              
-              {askResult.sources?.map((source, index) => (
-                <p key={index}>
-                  {source.file_name} — Lines {source.start_line}-{source.end_line}
-                </p>
-              ))} 
-            </div>
-          )}
-        </section>
-
-        <section>
-          <h2>Impact Analysis</h2>
-          <p>Analyze the impact of a proposed code change.</p>
-
-           <textarea
-            placeholder="Describe the change you want to make..."
-            value={changeRequest}
-            onChange={(e) => setChangeRequest(e.target.value)}
-            rows="5"
-          />
-          <button onClick={handleImpact}>Analyze Impact</button>
-
-          {impactResult && (
-            <div>
-              <h3>Impact Analysis Result</h3>
-              <p>{impactResult.analysis}</p>
-            </div>
-          )}
-        </section>
-      </main>
-    </div>
-  );
+      <ImpactAnalysis
+        changeRequest={changeRequest}
+        setChangeRequest={setChangeRequest}
+        handleImpact={handleImpact}
+        impactResult={impactResult}
+      />
+    </main>
+  </div>
+);
 }
 
 export default App;
