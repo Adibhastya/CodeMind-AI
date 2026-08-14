@@ -4,7 +4,7 @@ import zipfile
 import shutil
 
 from backend.services.code_parser.file_scanner import scan_project
-
+from backend.services.code_parser.code_reader import read_code_file
 
 router = APIRouter()
 
@@ -31,12 +31,21 @@ async def upload_project(file: UploadFile = File(...)):
         zip_ref.extractall(project_dir)
 
     zip_path.unlink()
+
     project_files = scan_project(str(project_dir))
+
+    code_files = []
+
+    for file_path in project_files:
+        code_data = read_code_file(str(file_path))
+
+        if code_data:
+            code_files.append(code_data)
 
     return {
         "message": "Project uploaded and scanned successfully",
         "project": file.filename,
-        "total_files": len(project_files),
-        "files": [str(file) for file in project_files],
+        "total_files": len(code_files),
+        "files": code_files,
         "location": str(project_dir)
     }
