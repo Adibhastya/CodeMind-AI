@@ -14,9 +14,10 @@ class AskRequest(BaseModel):
 @router.post("/ask")
 def ask_question(request: AskRequest):
 
-    answer = ask_codebase(request.question)
+    result = ask_codebase(request.question)
 
     return {
         "question": request.question,
-        "answer": answer
+        "answer": result["answer"],
+        "sources": result["sources"]
     }
