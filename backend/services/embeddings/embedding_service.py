@@ -1,28 +1,43 @@
-from sentence_transformers import SentenceTransformer
+import os
+import requests
+from dotenv import load_dotenv
 
 
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+load_dotenv()
 
-model = None
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+EMBEDDING_MODEL = "nvidia/llama-nemotron-embed-vl-1b-v2:free"
 
-def get_model():
-    global model
-
-    if model is None:
-        print("Loading embedding model...")
-        model = SentenceTransformer(MODEL_NAME)
-        print("Embedding model loaded.")
-
-    return model
+EMBEDDING_URL = "https://openrouter.ai/api/v1/embeddings"
 
 
 def generate_embedding(text: str):
-    embedding_model = get_model()
+    if not OPENROUTER_API_KEY:
+        raise ValueError("OPENROUTER_API_KEY is not configured.")
 
-    embedding = embedding_model.encode(text)
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Content-Type": "application/json",
+    }
 
-    return embedding.tolist()
+    payload = {
+        "model": EMBEDDING_MODEL,
+        "input": text,
+    }
+
+    response = requests.post(
+        EMBEDDING_URL,
+        headers=headers,
+        json=payload,
+        timeout=60,
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    return data["data"][0]["embedding"]
 
 
 if __name__ == "__main__":
