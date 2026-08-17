@@ -1,0 +1,239 @@
+.impact-card {
+  padding: 24px;
+  background: transparent;
+}
+
+.impact-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.impact-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: rgba(124, 58, 237, 0.16);
+  color: #c4b5fd;
+
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.impact-header h2 {
+  margin: 0;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  color: #f8fafc;
+}
+
+.impact-header p {
+  margin: 6px 0 0;
+
+  font-size: 13px;
+
+  color: #94a3b8;
+}
+
+.impact-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.impact-input-area textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  min-height: 145px;
+
+  padding: 14px;
+
+  resize: vertical;
+
+  border: 1px solid #334155;
+  border-radius: 12px;
+
+  background: rgba(15, 23, 42, 0.75);
+  color: #f8fafc;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.impact-input-area textarea::placeholder {
+  color: #64748b;
+}
+
+.impact-input-area textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.impact-input-area button {
+  width: 100%;
+
+  padding: 12px 18px;
+
+  border: none;
+  border-radius: 11px;
+
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.impact-input-area button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.3);
+}
+
+.impact-divider {
+  height: 1px;
+
+  margin: 22px 0;
+
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.impact-result-section h3 {
+  margin: 0 0 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #cbd5e1;
+}
+
+.impact-result {
+  padding: 16px;
+
+  border: 1px solid rgba(96, 165, 250, 0.12);
+  border-radius: 14px;
+
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.impact-result p {
+  margin: 0;
+
+  color: #dbeafe;
+
+  font-size: 13px;
+  line-height: 1.65;
+
+  white-space: pre-wrap;
+}
+
+.impact-empty-state {
+  min-height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  border: 1px dashed #334155;
+  border-radius: 14px;
+
+  background: rgba(15, 23, 42, 0.35);
+
+  text-align: center;
+}
+
+.impact-empty-state p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.impact-section-title {
+  margin: 18px 0 8px;
+
+  color: #60a5fa;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+
+  text-align: left;
+}
+
+.impact-section-title:first-child {
+  margin-top: 0;
+}
+
+.impact-text {
+  margin: 0 0 8px;
+
+  color: #dbeafe;
+
+  font-size: 13px;
+  line-height: 1.7;
+
+  text-align: left;
+}
+
+.impact-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  margin: 6px 0;
+
+  text-align: left;
+}
+
+.impact-bullet span {
+  color: #60a5fa;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.impact-bullet p {
+  margin: 0;
+
+  color: #dbeafe;
+
+  font-size: 13px;
+  line-height: 1.65;
+
+  text-align: left;
+}
+
+.impact-space {
+  height: 6px;
+}

@@ -1,0 +1,173 @@
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at center, #111827 0%, #080c14 55%, #030712 100%);
+}
+
+.splash-content {
+  text-align: center;
+}
+
+.splash-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  white-space: nowrap;
+}
+
+.splash-letter {
+  display: inline-block;
+
+  color: #f8fafc;
+
+  font-size: clamp(42px, 6vw, 82px);
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+
+  opacity: 0;
+
+  text-shadow:
+    0 0 18px rgba(59, 130, 246, 0.25),
+    0 0 40px rgba(59, 130, 246, 0.12);
+
+  animation: collideLetter 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Odd letters upar-left side se */
+
+.splash-letter:nth-child(odd) {
+  --start-x: -110px;
+  --start-y: -70px;
+  --rotate-start: -22deg;
+}
+
+/* Even letters neeche-right side se */
+
+.splash-letter:nth-child(even) {
+  --start-x: 110px;
+  --start-y: 70px;
+  --rotate-start: 22deg;
+}
+
+/* Har kuch letters ko different direction */
+
+.splash-letter:nth-child(3n) {
+  --start-x: 20px;
+  --start-y: -130px;
+  --rotate-start: 28deg;
+}
+
+.splash-letter:nth-child(4n) {
+  --start-x: -30px;
+  --start-y: 130px;
+  --rotate-start: -28deg;
+}
+
+.splash-subtitle {
+  margin: 24px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 15px;
+  font-weight: 400;
+
+  letter-spacing: 2px;
+
+  opacity: 0;
+  transform: translateY(18px);
+
+  animation: subtitleReveal 0.8s ease forwards;
+  animation-delay: 1.75s;
+}
+
+@keyframes collideLetter {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(var(--start-x), var(--start-y))
+      rotate(var(--rotate-start))
+      scale(0.4);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  /* Centre se thoda aage nikalta hai */
+
+  70% {
+    transform:
+      translate(-8px, 3px)
+      rotate(-3deg)
+      scale(1.12);
+  }
+
+  /* Collision / bounce */
+
+  84% {
+    transform:
+      translate(5px, -2px)
+      rotate(2deg)
+      scale(0.96);
+  }
+
+  /* Final correct position */
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(0, 0)
+      rotate(0deg)
+      scale(1);
+  }
+}
+
+@keyframes subtitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .splash-title {
+    gap: 2px;
+  }
+
+  .splash-letter {
+    font-size: clamp(30px, 9vw, 46px);
+    letter-spacing: -1px;
+  }
+
+  .splash-subtitle {
+    margin-top: 18px;
+    padding: 0 20px;
+
+    font-size: 11px;
+    letter-spacing: 1.2px;
+  }
+}

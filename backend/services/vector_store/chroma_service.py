@@ -3,9 +3,32 @@ import chromadb
 
 client = chromadb.PersistentClient(path="chroma_db")
 
-collection = client.get_or_create_collection(
-    name="code_chunks"
-)
+COLLECTION_NAME = "code_chunks"
+
+
+def get_collection():
+    return client.get_or_create_collection(
+        name=COLLECTION_NAME
+    )
+
+
+collection = get_collection()
+
+
+def reset_collection():
+    global collection
+
+    try:
+        client.delete_collection(
+            name=COLLECTION_NAME
+        )
+    except Exception:
+        pass
+
+    collection = client.get_or_create_collection(
+        name=COLLECTION_NAME
+    )
+
 
 def add_code_chunk(
     chunk_id: str,
@@ -13,26 +36,42 @@ def add_code_chunk(
     embedding: list,
     metadata: dict
 ):
-
-    collection.add(
+    collection.upsert(
         ids=[chunk_id],
         documents=[content],
         embeddings=[embedding],
         metadatas=[metadata]
     )
 
-def search_code_chunks(query_embedding: list, top_k: int = 3):
+
+def search_code_chunks(
+    query_embedding: list,
+    top_k: int = 3
+):
+    count = collection.count()
+
+    if count == 0:
+        return {
+            "ids": [[]],
+            "documents": [[]],
+            "metadatas": [[]],
+            "distances": [[]]
+        }
+
+    safe_top_k = min(top_k, count)
+
     results = collection.query(
         query_embeddings=[query_embedding],
-        n_results=top_k
+        n_results=safe_top_k
     )
 
     return results
 
 
 if __name__ == "__main__":
-
     test_embedding = [0.1] * 384
+
+    reset_collection()
 
     add_code_chunk(
         chunk_id="employee_chunk_1",

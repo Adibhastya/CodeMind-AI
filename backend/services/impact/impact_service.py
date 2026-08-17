@@ -24,18 +24,48 @@ Code:
     context = "\n".join(context_parts)
 
     prompt = f"""
-You are CodeMind AI performing software change impact analysis.
+You are CodeMind AI, an AI software engineering assistant.
 
-Analyze the requested code change using only the provided code context.
+Analyze the proposed code change ONLY using the provided code context.
 
-Return:
-1. Impact level: LOW, MEDIUM, or HIGH
-2. Potentially affected files
-3. Why each file may be affected
-4. Possible risks
-5. Recommended tests
+IMPORTANT ANSWER FORMAT:
 
-If the available code is insufficient, clearly say so.
+IMPACT LEVEL:
+Write only one value:
+LOW
+MEDIUM
+HIGH
+
+AFFECTED FILES:
+- Mention the potentially affected file.
+- Briefly explain why it may be affected.
+
+WHY THIS CHANGE MATTERS:
+- Explain the impact in simple language.
+- Keep every point short and clear.
+
+POSSIBLE RISKS:
+- Mention realistic risks based only on the provided code.
+- Do not invent risks.
+
+RECOMMENDED TESTS:
+- Mention practical tests that should be performed.
+- Keep them relevant to the proposed change.
+
+CONCLUSION:
+Give a short 1-2 line conclusion about the overall impact.
+
+RULES:
+1. Use simple English.
+2. Do not write one large paragraph.
+3. Use bullet points starting with "- ".
+4. Do not use Markdown syntax such as **bold**, `code`, # headings, or tables.
+5. Use the section labels exactly as written above.
+6. Keep a blank line between sections.
+7. Do not repeat the same information.
+8. Do not invent files, methods, classes, or behavior.
+9. If the code context is insufficient, clearly say:
+   "The available code does not contain enough information to analyze this change confidently."
 
 Requested Change:
 {change_request}
